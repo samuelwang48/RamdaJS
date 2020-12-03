@@ -1,4 +1,4 @@
-# The Algorithms - JavaScript
+# The Algorithms - RamdaJS
 
 
 [![contributions welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square)](https://github.com/TheAlgorithms/Javascript/blob/master/CONTRIBUTING.md)&nbsp;
@@ -7,7 +7,7 @@
 ![update_directory_md](https://github.com/TheAlgorithms/Javascript/workflows/update_directory_md/badge.svg)
 ![](https://img.shields.io/github/repo-size/TheAlgorithms/Javascript.svg?label=Repo%20size&style=flat-square)&nbsp;
 
-### All algorithms implemented in JavaScript (for educational purposes only)
+### All algorithms implemented in RamdaJS(A practical functional library for JavaScript programmers) (for educational purposes only)
 
 These are for demonstration purposes only. There are many implementations of sorts in the JavaScript standard library that are much better for performance reasons.
 

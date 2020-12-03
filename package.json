@@ -1,12 +1,13 @@
 {
   "name": "javascript",
   "version": "1.0.0",
-  "description": "A repository for All algorithms implemented in Javascript (for educational purposes only)",
+  "description": "A repository for All algorithms implemented in RamdaJS (for educational purposes only)",
   "main": "",
+  "type": "module",
   "scripts": {
     "test": "jest --no-cache"
   },
-  "author": "TheAlgorithms",
+  "author": "Samuel Wang",
   "license": "GPL-3.0",
   "dependencies": {
     "@babel/core": "^7.11.6",
@@ -14,7 +15,8 @@
     "@babel/preset-env": "^7.11.5",
     "jsdom": "^16.3.0",
     "node": "^14.13.1",
-    "node-fetch": "2.6.1"
+    "node-fetch": "2.6.1",
+    "ramda": "^0.27.1"
   },
   "standard": {
     "env": [

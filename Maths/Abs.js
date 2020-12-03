@@ -1,5 +1,8 @@
+import * as R from 'ramda';
+
 /*
-    author: PatOnTheBack
+    author: Samuel Wang
+    original author: PatOnTheBack
     license: GPL-3.0 or later
 
     Modified from:
@@ -11,14 +14,12 @@
         https://en.wikipedia.org/wiki/Absolute_value
 */
 
-const absVal = (num) => {
-  // Find absolute value of `num`.
-  'use strict'
-  if (num < 0) {
-    return -num
-  }
-  // Executes if condition is not met.
-  return num
-}
+const absVal = (num) => R.pipe(
+  R.ifElse(
+    R.lt(R.__, 0),
+    R.subtract(0, R.__),
+    R.identity
+  )
+)(num);
 
 export { absVal }
