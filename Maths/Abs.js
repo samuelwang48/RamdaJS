@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import { __, pipe, ifElse, lt, subtract, identity } from 'ramda';
 
 /*
     author: Samuel Wang
@@ -14,11 +14,11 @@ import * as R from 'ramda';
         https://en.wikipedia.org/wiki/Absolute_value
 */
 
-const absVal = (num) => R.pipe(
-  R.ifElse(
-    R.lt(R.__, 0),
-    R.subtract(0, R.__),
-    R.identity
+const absVal = (num) => pipe(
+  ifElse(
+    lt(__, 0),
+    subtract(0, __),
+    identity
   )
 )(num);
 
