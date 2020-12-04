@@ -1,5 +1,11 @@
+import {
+  __, T, converge, useWith, toString, split, map, identity,
+  add, cond, pipe, type, equals, not, lt, length
+} from 'ramda';
+
 /**
- * Author: dephraiim
+ * Author: Samuel Wang
+ * Original Author: dephraiim
  * License: GPL-3.0 or later
  *
  * An Armstrong number is equal to the sum of the cubes of its digits.
@@ -8,17 +14,27 @@
  *
  */
 
-const armstrongNumber = (num) => {
-  if (num < 0 || typeof num !== 'number') return false
-
-  let newSum = 0
-
-  const numArr = num.toString().split('')
-  numArr.forEach((num) => {
-    newSum += parseInt(num) ** numArr.length
-  })
-
-  return newSum === num
-}
+const armstrongNumber = (n) => pipe(
+  cond([
+    [pipe(type, equals('Number'), not), () => false],
+    [lt(__, 0), () => false],
+    [T, converge(
+      equals,
+      [
+        useWith(
+          (a) => a.reduce((acc, current, index, array) => add(acc, Math.pow(current, length(array))), 0),
+          [
+            pipe(
+              toString,
+              split(''),
+              map(parseInt)
+            )
+          ]
+        ),
+        identity
+      ]
+    )]
+  ])
+)(n);
 
 export { armstrongNumber }

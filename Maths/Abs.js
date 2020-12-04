@@ -14,12 +14,12 @@ import { __, pipe, ifElse, lt, subtract, identity } from 'ramda';
         https://en.wikipedia.org/wiki/Absolute_value
 */
 
-const absVal = (num) => pipe(
+const absVal = (n) => pipe(
   ifElse(
     lt(__, 0),
     subtract(0, __),
     identity
   )
-)(num);
+)(n);
 
 export { absVal }

@@ -1,3 +1,12 @@
+import { cond, pipe, head, type, equals, not, lt, __ } from 'ramda';
+
+/**
+ * Author: Samuel Wang
+ * Original Author: https://github.com/josecarlosweb
+ * License: GPL-3.0 or later
+ *
+ */
+
 /*
   Calculate the area of various shapes
 
@@ -88,12 +97,17 @@ const areaRhombus = (diagonal1, diagonal2) => {
   return (1 / 2 * diagonal1 * diagonal2)
 }
 
-const validateNumericParam = (param, paramName = 'param') => {
-  if (typeof param !== 'number') {
-    throw new TypeError('The ' + paramName + ' should be type Number')
-  } else if (param < 0) {
-    throw new Error('The ' + paramName + ' only accepts non-negative values')
-  }
+const validateNumericParam = (p, n) => {
+  cond([
+    [pipe(head, type, equals('Number'), not), (m) => {
+      throw new TypeError('The ' + m + ' should be type Number');
+    }],
+    [pipe(head, lt(__, 0)), (m) => {
+      throw new Error('The ' + m + ' only accepts non-negative values');
+    }]
+  ])([p, n]);
 }
 
+
 export { surfaceAreaCube, surfaceAreaSphere, areaRectangle, areaSquare, areaTriangle, areaParallelogram, areaTrapezium, areaCircle, areaRhombus }
+
