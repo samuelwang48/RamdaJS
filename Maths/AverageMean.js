@@ -1,7 +1,9 @@
-'use strict'
+import { converge, divide, sum, length } from 'ramda';
+
 /*
-    author: PatOnTheBack
-    license: GPL-3.0 or later
+    Author: Samuel Wang
+    Original Author: PatOnTheBack
+    License: GPL-3.0 or later
 
     Modified from:
         https://github.com/TheAlgorithms/Python/blob/master/maths/average.py
@@ -12,18 +14,12 @@
         https://en.wikipedia.org/wiki/Mean
 */
 
-const mean = (nums) => {
-  // This is a function returns average/mean of array
-  let sum = 0
-
-  // This loop sums all values in the 'nums' array using forEach loop
-  nums.forEach(function (current) {
-    sum += current
-  })
-
-  // Divide sum by the length of the 'nums' array.
-  const avg = sum / nums.length
-  return avg
-}
+const mean = (n) => converge(
+  divide,
+  [
+    sum,
+    length
+  ]
+)(n);
 
 export { mean }
