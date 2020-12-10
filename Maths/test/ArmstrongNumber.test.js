@@ -11,4 +11,7 @@ describe('ArmstrongNumber', () => {
   it('should return false for negative values', () => {
     expect(armstrongNumber(-2)).toBeFalsy()
   })
+  it('should return false for non number values', () => {
+    expect(armstrongNumber('foo')).toBeFalsy()
+  })
 })
