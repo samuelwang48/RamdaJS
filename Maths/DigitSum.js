@@ -1,16 +1,35 @@
-// program to find sum of digits of a number
+import {
+  useWith, until, equals, identity
+} from 'ramda';
 
-// function which would calculate sum and return it
-const digitSum = (num) => {
-  // sum will store sum of digits of a number
-  let sum = 0
-  // while will run untill num become 0
-  while (num) {
-    sum += num % 10
-    num = parseInt(num / 10)
-  }
+/**
+ * Author: Samuel Wang
+ * Original Author: https://github.com/dephraiim
+ * License: GPL-3.0 or later
+ *
+ * program to find sum of digits of a number
+ *
+ * function which would calculate sum and return it
+ */
 
-  return sum
+
+const digitSum = (n) => {
+  return useWith(
+    (n, r) => {
+      until(
+        equals(0),
+        (n) => {
+          r += n % 10;
+          return parseInt(n / 10)
+        }
+      )(n);
+      return r;
+    },
+    [
+      identity,
+      identity
+    ]
+  )(n, 0);
 }
 
 export { digitSum }

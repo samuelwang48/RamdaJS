@@ -41,9 +41,9 @@ const exponent = (x, n) => {
     [
       identity,
       identity,
-      defaultTo(1)
+      identity,
     ]
-  )(x, n, undefined)
+  )(x, n, 1);
 }
 
 export { exponent }
