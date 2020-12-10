@@ -1,4 +1,6 @@
-import * as R from 'ramda';
+import {
+  pipe, converge, times, divide, inc, identity, reverse, join
+} from 'ramda';
 
 /**
  * Author: Samuel Wang
@@ -6,28 +8,23 @@ import * as R from 'ramda';
  * License: GPL-3.0 or later
  */
 
-const BinaryConvert = (n) => R.pipe(
-  R.converge(
-    (a, b) => R.times(
-      (x) => parseInt( R.divide(b, 2 ** x ))  % 2, a
+const BinaryConvert = (n) => pipe(
+  converge(
+    (a, b) => times(
+      (x) => parseInt( divide(b, 2 ** x ))  % 2, a
     ),
     [
-      R.pipe(
+      pipe(
         Math.log2,
         parseInt,
-        R.inc
+        inc
       ),
-      R.identity
+      identity
     ]
   ),
-  R.reverse,
-  R.join(''),
+  reverse,
+  join(''),
   Number
 )(n);
-
-
-//console.log(BinaryConvert(8))
-//console.log(BinaryConvert(12))
-//console.log(BinaryConvert(817621))
 
 export { BinaryConvert }
