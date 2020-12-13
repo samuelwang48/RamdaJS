@@ -1,5 +1,10 @@
+import {
+  converge, filter, pipe, add, times, identity, defaultTo
+} from 'ramda';
+
 /**
- * Author: dephraiim
+ * Author: Samuel Wang
+ * Original Author: dephraiim
  * License: GPL-3.0 or later
  *
  * More on Factors:
@@ -7,10 +12,18 @@
  *
  */
 
-const factorsOfANumber = (number = 0) => {
-  return Array.from(Array(number + 1).keys()).filter(
-    (num) => number % num === 0
-  )
+const factorsOfANumber = (n) => {
+  return converge(
+    (a, b) => filter((n) => b % n === 0)(a),
+    [
+      pipe(
+        defaultTo(0),
+        add(1),
+        times(identity)
+      ),
+      identity
+    ]
+  )(n);
 }
 
 export { factorsOfANumber }
