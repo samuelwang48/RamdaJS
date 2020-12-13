@@ -98,22 +98,15 @@ const areaRhombus = (diagonal1, diagonal2) => {
 }
 
 const validateNumericParam = (p, n) => {
-  useWith(
-    (p, n) => {
-      cond([
-        [pipe(is(Number), not), () => {
-          throw new TypeError('The ' + n + ' should be type Number');
-        }],
-        [pipe(lt(__, 0)), () => {
-          throw new Error('The ' + n + ' only accepts non-negative values');
-        }]
-      ])(p);
-    },
-    [identity, identity]
-  )(p, n);
+  cond([
+    [pipe(is(Number), not), () => {
+      throw new TypeError('The ' + n + ' should be type Number');
+    }],
+    [pipe(lt(__, 0)), () => {
+      throw new Error('The ' + n + ' only accepts non-negative values');
+    }]
+  ])(p);
 }
-
-validateNumericParam('12', 'abc')
 
 export { surfaceAreaCube, surfaceAreaSphere, areaRectangle, areaSquare, areaTriangle, areaParallelogram, areaTrapezium, areaCircle, areaRhombus }
 

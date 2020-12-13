@@ -1,5 +1,5 @@
 import {
-  useWith, until, equals, identity
+  converge, until, equals, identity, always
 } from 'ramda';
 
 /**
@@ -14,7 +14,7 @@ import {
 
 
 const digitSum = (n) => {
-  return useWith(
+  return converge(
     (n, r) => {
       until(
         equals(0),
@@ -27,9 +27,9 @@ const digitSum = (n) => {
     },
     [
       identity,
-      identity
+      always(0)
     ]
-  )(n, 0);
+  )(n);
 }
 
 export { digitSum }
