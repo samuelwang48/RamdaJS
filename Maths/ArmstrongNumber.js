@@ -1,6 +1,6 @@
 import {
   __, T, converge, useWith, toString, split, map, identity,
-  add, cond, pipe, type, equals, not, lt, length
+  add, cond, pipe, is, equals, not, lt, length
 } from 'ramda';
 
 /**
@@ -16,7 +16,7 @@ import {
 
 const armstrongNumber = (n) => pipe(
   cond([
-    [pipe(type, equals('Number'), not), () => false],
+    [pipe(is(Number), not), () => false],
     [lt(__, 0), () => false],
     [T, converge(
       equals,

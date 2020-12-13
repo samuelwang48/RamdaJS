@@ -1,4 +1,4 @@
-import { cond, pipe, head, type, equals, not, lt, __ } from 'ramda';
+import { cond, pipe, head, is, not, lt, __, identity, useWith } from 'ramda';
 
 /**
  * Author: Samuel Wang
@@ -98,16 +98,22 @@ const areaRhombus = (diagonal1, diagonal2) => {
 }
 
 const validateNumericParam = (p, n) => {
-  cond([
-    [pipe(head, type, equals('Number'), not), (m) => {
-      throw new TypeError('The ' + m + ' should be type Number');
-    }],
-    [pipe(head, lt(__, 0)), (m) => {
-      throw new Error('The ' + m + ' only accepts non-negative values');
-    }]
-  ])([p, n]);
+  useWith(
+    (p, n) => {
+      cond([
+        [pipe(is(Number), not), () => {
+          throw new TypeError('The ' + n + ' should be type Number');
+        }],
+        [pipe(lt(__, 0)), () => {
+          throw new Error('The ' + n + ' only accepts non-negative values');
+        }]
+      ])(p);
+    },
+    [identity, identity]
+  )(p, n);
 }
 
+validateNumericParam('12', 'abc')
 
 export { surfaceAreaCube, surfaceAreaSphere, areaRectangle, areaSquare, areaTriangle, areaParallelogram, areaTrapezium, areaCircle, areaRhombus }
 
