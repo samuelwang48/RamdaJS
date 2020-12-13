@@ -8,6 +8,15 @@ import {
 
 describe('Fibonanci', () => {
   it('should return an array of numbers for FibonnaciIterative', () => {
+    expect(FibonacciIterative(0)).toEqual(
+      expect.arrayContaining([])
+    )
+    expect(FibonacciIterative(1)).toEqual(
+      expect.arrayContaining([1])
+    )
+    expect(FibonacciIterative(2)).toEqual(
+      expect.arrayContaining([1, 1])
+    )
     expect(FibonacciIterative(5)).toEqual(
       expect.arrayContaining([1, 1, 2, 3, 5])
     )

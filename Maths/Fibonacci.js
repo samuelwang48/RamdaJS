@@ -1,35 +1,61 @@
-const list = []
+import * as R from 'ramda';
 
-const FibonacciIterative = (nth) => {
-  const sequence = []
-
-  if (nth >= 1) sequence.push(1)
-  if (nth >= 2) sequence.push(1)
-
-  for (let i = 2; i < nth; i++) {
-    sequence.push(sequence[i - 1] + sequence[i - 2])
-  }
-
-  return sequence
+const FibonacciIterative = (number) => {
+  return R.cond([
+    [R.equals(R.__, 0), ()=>[]],
+    [R.equals(R.__, 1), ()=>[1]],
+    [R.equals(R.__, 2), ()=>[1, 1]],
+    [
+      R.T,
+      R.converge(
+        (number, i, table) => {
+          R.until(
+            R.equals(number),
+            (i) => R.converge(
+              (n, table) => table.push(n),
+              [
+                R.converge(R.add, [R.nth(i - 1), R.nth(i - 2)]),
+                R.identity
+              ]
+            )(table)
+          )(i);
+          return table;
+        },
+        [
+          R.identity,
+          R.always(2),
+          R.always([1, 1])
+        ]
+      )
+    ]
+  ])(number);
 }
 
-const FibonacciRecursive = (number) => {
-  return (() => {
+
+const FibonacciRecursive = (n) => {
+  const list = []
+  const f = (n) => {
     switch (list.length) {
       case 0:
         list.push(1)
-        return FibonacciRecursive(number)
+        return f(n)
       case 1:
         list.push(1)
-        return FibonacciRecursive(number)
-      case number:
+        return f(n)
+      case n:
         return list
       default:
         list.push(list[list.length - 1] + list[list.length - 2])
-        return FibonacciRecursive(number)
+        return f(n)
     }
-  })()
+  }
+  return f(n)
 }
+
+console.log(5, FibonacciRecursive(5))
+console.log(12, FibonacciRecursive(12))
+
+
 
 const dict = new Map()
 
@@ -60,13 +86,26 @@ const FibonacciRecursiveDP = (stairs) => {
 // @Satzyakiz
 
 const FibonacciDpWithoutRecursion = (number) => {
-  const table = []
-  table.push(1)
-  table.push(1)
-  for (var i = 2; i < number; ++i) {
-    table.push(table[i - 1] + table[i - 2])
-  }
-  return table
+  return R.converge(
+    (number, i, table) => {
+      R.until(
+        R.equals(number),
+        (i) => R.converge(
+          (n, table) => table.push(n),
+          [
+            R.converge(R.add, [R.nth(i - 1), R.nth(i - 2)]),
+            R.identity
+          ]
+        )(table)
+      )(i);
+      return table;
+    },
+    [
+      R.identity,
+      R.always(2),
+      R.always([1, 1])
+    ]
+  )(number);
 }
 
 // Using Matrix exponentiation to find n-th fibonacci in O(log n) time
