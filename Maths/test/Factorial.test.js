@@ -28,8 +28,13 @@ describe('calcFactorial', () => {
     )
   })
 
-  it('should return the factorial of a positive number', () => {
+  it('should return the factorial of a positive number 3', () => {
     const positiveFactorial = calcFactorial(3)
     expect(positiveFactorial).toBe('The factorial of 3 is 6')
+  })
+
+  it('should return the factorial of a positive number 4', () => {
+    const positiveFactorial = calcFactorial(4)
+    expect(positiveFactorial).toBe('The factorial of 4 is 24')
   })
 })
