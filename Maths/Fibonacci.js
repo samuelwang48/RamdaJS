@@ -32,24 +32,30 @@ const FibonacciIterative = (number) => {
 }
 
 
-const FibonacciRecursive = (n) => {
-  const list = []
-  const f = (n) => {
-    switch (list.length) {
-      case 0:
-        list.push(1)
-        return f(n)
-      case 1:
-        list.push(1)
-        return f(n)
-      case n:
-        return list
-      default:
-        list.push(list[list.length - 1] + list[list.length - 2])
-        return f(n)
+const FibonacciRecursive = (number) => {
+  const f = R.curryN(1 + 2, R.call)(
+    (table, n) => {
+      return R.cond([
+        [R.equals(0), () => f(R.append(1, table), n)],
+        [R.equals(1), () => f(R.append(1, table), n)],
+        [R.equals(n), () => table],
+        [R.T, (i) => {
+          return f(
+            R.converge(
+              R.append,
+              [
+                R.converge(R.add, [R.nth(i - 1), R.nth(i - 2)]),
+                R.identity
+              ]
+            )(table),
+            n
+          );
+        }]
+      ])(R.length(table))
     }
-  }
-  return f(n)
+  )
+
+  return f([], number);
 }
 
 console.log(5, FibonacciRecursive(5))
