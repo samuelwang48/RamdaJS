@@ -63,22 +63,26 @@ console.log(12, FibonacciRecursive(12))
 
 
 
-const dict = new Map()
-
 const FibonacciRecursiveDP = (stairs) => {
-  if (stairs <= 0) return 0
-  if (stairs === 1) return 1
+  const F = (n, map) => {
+    return R.cond([
+      [R.lte(R.__, 0), () => 0],
+      [R.equals(1), () => 1],
+      [
+        R.T,
+        R.cond([
+          [(n) => map.has(n), (n) => map.get(n)],
+          [R.T, (n) => map.set(n, F(n - 1, map) + F(n - 2, map)).get(n)]
+        ])
+      ],
+    ])(n);
+  }
 
-  // Memoize stair count
-  if (dict.has(stairs)) return dict.get(stairs)
-
-  const res =
-    FibonacciRecursiveDP(stairs - 1) + FibonacciRecursiveDP(stairs - 2)
-
-  dict.set(stairs, res)
-
-  return res
+  return F(stairs, new Map());
 }
+
+console.log(5, FibonacciRecursiveDP(5))
+console.log(12, FibonacciRecursiveDP(12))
 
 // Algorithms
 // Calculates Fibonacci(n) such that Fibonacci(n) = Fibonacci(n - 1) + Fibonacci(n - 2)
